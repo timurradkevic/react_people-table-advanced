@@ -2,7 +2,7 @@ import React from 'react';
 import { Person } from '../types';
 import { PersonLink } from './PersonLink';
 import { Link, useSearchParams } from 'react-router-dom';
-import { getSearchWith } from './PeopleFilters';
+import { getSearchWith } from '../utils/searchHelper';
 
 type Props = {
   slug: string | null;
@@ -17,16 +17,14 @@ export const PeopleTable: React.FC<Props> = ({ slug, people, sort, order }) => {
 
   const getSortSearch = (field: string) => {
     if (sort !== field) {
-      return getSearchWith({ sort: field }, searchParams);
-
-      return;
+      return getSearchWith(searchParams, { sort: field });
     }
 
     if (order === 'desc') {
-      return getSearchWith({ sort: null, order: null }, searchParams);
+      return getSearchWith(searchParams, { sort: null, order: null });
     }
 
-    return getSearchWith({ order: 'desc' }, searchParams);
+    return getSearchWith(searchParams, { order: 'desc' });
   };
 
   const handleSortIcon = (field: string) => {
